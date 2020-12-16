@@ -7,7 +7,10 @@ class BlogsController < ApplicationController
     @blog = Blog.new
   end
   def create
+    # @blog = current_user.blogs.build(blog_params)
     @blog = Blog.new(blog_params)
+    @blog.user_id = current_user.id
+    #現在ログインしているuserのidを、blogのuser_idカラムに挿入する
     if params[:back]
       render :new
     else
@@ -19,7 +22,10 @@ class BlogsController < ApplicationController
     end
   end
   def confirm
+    # @blog = current_user.blogs.build(blog_params)
     @blog = Blog.new(blog_params)
+    @blog.user_id = current_user.id
+    #現在ログインしているuserのidを、blogのuser_idカラムに挿入する
     render :new if @blog.invalid?
   end
   def show
